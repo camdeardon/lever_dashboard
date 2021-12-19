@@ -184,7 +184,10 @@ def render_content(tab):
     counts_salary_df = pd.DataFrame(counts)
     df2 = pd.merge(counts_df, counts_salary_df, left_index=True, right_index=True)
     df2.sort_values(by=['Agency'],ascending = True, inplace = True)
+    df2.index = df2.index.str.capitalize()
+
     fig_agency = px.bar(df2, y=df2.index[-10:], x=df2['Agency'].tail(10),
+                        
                 color = df2['Salary'].tail(10), 
                 title='Industries by number of postings:', 
                 labels={
