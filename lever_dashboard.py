@@ -74,14 +74,15 @@ app.layout = html.Div(
     html.Br(),
     html.P('Incumbent Mayor: Cam Deardon (Independent)',     
     style = {'text-align': 'center','font-family':'helvetica'}),
-    html.H4('Total Jobs: ', style={'text-align': 'center',
+    html.Div([html.H4('Total Jobs: ', style={'text-align': 'center',
     'font-weight': 'light'}),
     html.P(str(len(df)), style=
     {'text-align': 'center','font-family': 'helvetica'}),
     html.H4('Average Salary: ', style={'text-align': 'center',
     'font-weight': 'light'}),
     html.P('$' + str(average_salary_calc), style=
-    {'text-align': 'center','font-family': 'helvetica'}),
+    {'text-align': 'center','font-family': 'helvetica'})], 
+    className="h-100 p-5 text-white bg-dark rounded-3"),
     html.Br(),
         html.Div(
             dbc.Row(children=[
