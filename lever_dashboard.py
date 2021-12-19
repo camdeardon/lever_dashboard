@@ -61,6 +61,9 @@ df_group = df.groupby(['Business Title']).mean(['# Of Positions'])
 df_group.sort_values('# Of Positions', ascending = True, inplace = True)
 df_group.index = df_group.index.str.capitalize()
 
+df['Salary_calc'] = ((df['Salary Range From'] + df['Salary Range To']) / 2)
+average_salary_calc = (df['Salary_calc'].sum() / len(df))
+average_salary_calc = average_salary_calc.round(2)
         
 app.layout = html.Div(
     [
@@ -74,6 +77,10 @@ app.layout = html.Div(
     html.H4('Total Jobs: ', style={'text-align': 'center',
     'font-weight': 'light'}),
     html.P(str(len(df)), style=
+    {'text-align': 'center','font-family': 'helvetica'}),
+    html.H4('Average Salary: ', style={'text-align': 'center',
+    'font-weight': 'light'}),
+    html.P('$' + str(average_salary_calc), style=
     {'text-align': 'center','font-family': 'helvetica'}),
     html.Br(),
         html.Div(
