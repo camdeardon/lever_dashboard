@@ -31,7 +31,8 @@ fig = px.bar(df2, y=df2.index[-10:], x=df2['Job Category'].tail(10),
             color = df2['Salary'].tail(10), 
             title='Industries by number of postings:', 
             labels={
-                     "x": "Number of postings", 
+                     "x": "Number of postings",
+                      "y": ' '
                      "color": "Mean Salary ($)"
                  },
              color_continuous_scale= px.colors.sequential.YlGnBu)
@@ -191,6 +192,7 @@ def render_content(tab):
                 title='Industries by number of postings:', 
                 labels={
                         "x": "Number of postings",
+                        "y": " "
                         "color": "Mean Salary ($)"
                     },
                 color_continuous_scale= px.colors.sequential.YlGnBu)
@@ -265,6 +267,7 @@ def update_salary_visuals(hourly_vs_annual):
     color_continuous_scale= px.colors.sequential.YlGnBu, 
     title='Jobs with most vacancies:', labels={
                         "x": "Number of Vacancies",
+                        "y": " "
                         "color": "Mean Salary ($)"
                     })
     df_salary2 = dff[dff['Salary Frequency'] == 'Annual']
@@ -284,7 +287,7 @@ def update_salary_visuals(hourly_vs_annual):
     color_continuous_scale= px.colors.sequential.Sunset, 
     labels={
                         "x": "Number of Vacancies",
-                        "y": "Business Title",
+                        "y": " ",
                         "color": "Mean Salary ($)"})
 
     if hourly_vs_annual == 'OPT1':
