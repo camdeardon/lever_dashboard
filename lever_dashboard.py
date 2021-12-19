@@ -46,14 +46,12 @@ fig3 = ff.create_distplot([
     df['Salary Range From'],
     df['Salary Range To']], 
     group_labels, bin_size= 10000)
-fig3.update_layout(title='Salary Distribution across all jobs')
 
 fig4 = go.Figure()
 fig4.add_trace(go.Box(y=df['Salary Range From'], name='Salary Range From',
                 marker_color = 'indianred'))
 fig4.add_trace(go.Box(y=df['Salary Range To'], name = 'Salary Range To',
                 marker_color = 'lightseagreen'))
-fig4.update_layout(title='Salary Distribution across all jobs')
 
 # # of positions
 df.sort_values(by = ['# Of Positions'], ascending = True, inplace = True)
@@ -127,6 +125,9 @@ app.layout = html.Div(
             ]
             )
         ),
+
+html.Br(),
+html.Br(),
 html.Div(
     dbc.Row(
         children=[
@@ -135,6 +136,8 @@ html.Div(
                     html.Div(
                         children=[
                         #Salary Distributions
+                        html.H4('Salary Distribution across all jobs', style={
+                        'font-family': 'helvetica', 'text-align-last':'center'}),
                                     dcc.Dropdown(id='salary_visuals', 
                                         options=[
                                         {'label': 'Distribution Plot', 'value': 'OPT1'},
@@ -158,7 +161,7 @@ html.Div(
                 children=[
                     html.Div(
                         children=[
-                            html.P('Top 5 highest vacancy jobs: ', 
+                            html.H4('Top 5 highest vacancy jobs: ', 
                             style={ 
                             'text-align': 'center',
                             'font-family':'helvetica'}
@@ -179,6 +182,8 @@ html.Div(
             ]
         )
     ),
+html.Div(className="h-100 p-5 text-white bg-dark rounded-3")
+
 ]
 )
 
