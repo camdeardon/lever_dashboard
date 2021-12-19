@@ -260,7 +260,7 @@ def update_salary_visuals(hourly_vs_annual):
     df_group1.index = df_group1.index.str.capitalize()
     df_group1['Salary'] = df_group1[['Salary Range From', 'Salary Range To']].mean(axis=1)
     df_group1.sort_values(by='# Of Positions', ascending = True, inplace = True)
-    fig5 = px.bar(df, y=df_group1.index[-5:], x=df_group1['# Of Positions'][-5:],
+    fig5 = px.bar(df, x=df_group1.index[-5:], y=df_group1['# Of Positions'][-5:],
     color=df_group1['Salary'][-5:], 
     color_continuous_scale= px.colors.sequential.Sunset, 
                     labels={
@@ -279,7 +279,7 @@ def update_salary_visuals(hourly_vs_annual):
     df_group2.index = df_group2.index.str.capitalize()
     df_group2['Salary'] = df_group2[['Salary Range From', 'Salary Range To']].mean(axis=1)
     df_group2.sort_values(by='# Of Positions', ascending = True, inplace = True)
-    fig6 = px.bar(dff, y=df_group2.index[-5:], x=df_group2['# Of Positions'][-5:],
+    fig6 = px.bar(dff, x=df_group2.index[-5:], y=df_group2['# Of Positions'][-5:],
     color=df_group2['Salary'][-5:],
     color_continuous_scale= px.colors.sequential.Sunset, 
     labels={
