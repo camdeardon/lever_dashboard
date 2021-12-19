@@ -65,13 +65,16 @@ df_group.index = df_group.index.str.capitalize()
 app.layout = html.Div(
     [
     html.H1("New York City Job Postings", 
-    style = {'text-align': 'center', 'font-family': 'Helvetica', "text-decoration" :"underline"}
+    style = {'text-align': 'center',"text-decoration" :"underline"}
     ),
-    html.Br(),
-    html.H5('Incumbent Mayor: Cam Deardon (Independant)',     
-    style = {'text-align': 'left', 'font-family': 'Helvetica', "text-decoration" :"underline"}
-),
     html.Div(id = 'total_jobs'),
+    html.Br(),
+    html.P('Incumbent Mayor: Cam Deardon (Independent)',     
+    style = {'text-align': 'center','font-family':'helvetica'}),
+    html.H4('Total Jobs: ', style={'text-align': 'center',
+    'font-weight': 'light'}),
+    html.P(str(len(df)), style=
+    {'text-align': 'center','font-family': 'helvetica'}),
     html.Br(),
         html.Div(
             dbc.Row(children=[
@@ -91,8 +94,8 @@ app.layout = html.Div(
                     html.Div(
                         children=[
                                 html.Div(
-                                    [html.H5('Job posting type report', 
-                                    style={'margin-right': '2em', 'font-family': 'Helvetica'}
+                                    [html.P('Job posting type report', 
+                                    style={'text-align':'center', 'font-family': 'helvetica'}
                                             )
                                     ]
                                     ),
@@ -106,8 +109,7 @@ app.layout = html.Div(
                                     multi=False,
                                     clearable=False,
                                     style={ 
-                                    'text-align-last':'center', 
-                                    'font-family': 'Helvetica'}),
+                                    'text-align-last':'center'}),
 
                                     dcc.Graph(id='report_type_', figure = {})
                         ]
@@ -134,8 +136,7 @@ html.Div(
                                         multi=False,
                                         clearable=False,
                                         style={ 
-                                        'text-align-last':'center', 
-                                        'font-family': 'Helvetica'
+                                        'text-align-last':'center'
                                         }
                                         ),
 
@@ -148,8 +149,10 @@ html.Div(
                 children=[
                     html.Div(
                         children=[
-                            html.H5('Top 5 highest vacancy jobs: ', 
-                            style={'margin-left': '2em', 'font-family': 'Helvetica'}
+                            html.P('Top 5 highest vacancy jobs: ', 
+                            style={ 
+                            'text-align': 'center',
+                            'font-family':'helvetica'}
                                 ),
                             dcc.RadioItems(
                                 id='hourly_vs_annual',
@@ -166,7 +169,7 @@ html.Div(
                 ],width=7),
             ]
         )
-    )  
+    ),
 ]
 )
 
