@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn lever_dashboard:app
