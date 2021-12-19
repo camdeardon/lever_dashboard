@@ -192,8 +192,8 @@ def render_content(tab):
                 color = df2['Salary'].tail(10), 
                 title='Industries by number of postings:', 
                 labels={
-                        "y": "Number of postings",
-                        "x": " ",
+                        "x": "Number of postings",
+                        "y": " ",
                         "color": "Mean Salary ($)"
                     },
                 color_continuous_scale= px.colors.sequential.Sunset)
@@ -286,8 +286,8 @@ def update_salary_visuals(hourly_vs_annual):
     color=df_group2['Salary'][-5:],
     color_continuous_scale= px.colors.sequential.Sunset, 
     labels={
-                        "x": "Number of Vacancies",
-                        "y": " ",
+                        "y": "Number of Vacancies",
+                        "x": " ",
                         "color": "Mean Salary ($)"})
 
     if hourly_vs_annual == 'OPT1':
