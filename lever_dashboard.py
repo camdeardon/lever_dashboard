@@ -91,7 +91,8 @@ app.layout = html.Div(
                         children=[
                             dcc.Tabs(id="tabs-graph", value='tab-1-graph', children=[
                             dcc.Tab(label='Top Sectors', value='tab-1-graph'),
-                            dcc.Tab(label='Top Agencies', value='tab-2-graph')
+                            dcc.Tab(label='Top Agencies', value='tab-2-graph'),
+                            dcc.Tab(label='Top Divisions', value='tab-3-graph')
                             ]),dcc.Graph(id='tabs-content-graph', figure = {})
                                 ]
                             )
@@ -151,7 +152,7 @@ html.Div(
                                         figure = {})
                             ]
                         )
-                    ], width=5),
+                    ], width=7),
                     dbc.Col(
                 children=[
                     html.Div(
@@ -173,7 +174,7 @@ html.Div(
                                     )
                                 ]
                             )
-                ],width=7),
+                ],width=5),
             ]
         )
     ),
@@ -205,10 +206,33 @@ def render_content(tab):
                     },
                 color_continuous_scale= px.colors.sequential.Sunset)
 
+    df['Salary_'] = df[['Salary Range From', 'Salary Range To']].mean(axis=1)
+    counts2 = df.groupby('Division/Work Unit')['Salary'].mean()
+    counts_list2 = df['Division/Work Unit'].value_counts()
+    #print(counts.head())
+    counts_df2 = pd.DataFrame(counts_list2)
+    counts_salary_df2 = pd.DataFrame(counts2)
+    df3 = pd.merge(counts_df2, counts_salary_df2, left_index=True, right_index=True)
+    df3.sort_values(by=['Division/Work Unit'],ascending = True, inplace = True)
+    df3.index = df3.index.str.capitalize()
+
+    fig_division = px.bar(df3, y=df3.index[-10:], x=df3['Division/Work Unit'].tail(10),
+                        
+                color = df2['Salary'].tail(10), 
+                title='Industries by number of postings:', 
+                labels={
+                        "x": "Number of postings",
+                        "y": " ",
+                        "color": "Mean Salary ($)"
+                    },
+                color_continuous_scale= px.colors.sequential.Sunset)
+
     if tab == 'tab-1-graph':
         return fig
-    else:
+    elif tab == 'tab-2-graph':
         return fig_agency
+    else:
+        return fig_division
 
 
 @app.callback(
