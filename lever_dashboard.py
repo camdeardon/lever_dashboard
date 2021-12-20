@@ -65,14 +65,12 @@ average_salary_calc = average_salary_calc.round(2)
 
 
 #years and job postings
-
-
 df['Year'] = pd.to_datetime(df['Posting Date']).dt.year
 df['Month'] = pd.to_datetime(df['Posting Date']).dt.month
 dfs = df.groupby(['Year','Month']).size().to_frame('Number of Jobs Posted')
 dfs.reset_index(inplace=True)
     
-job_growth = px.scatter(dfs, x='Year', y='Number of Jobs Posted', color='Month', size = 'Month', 
+job_growth = px.scatter(dfs, x='Year', y='Number of Jobs Posted', color='Month', size = 'Number of Jobs Posted', 
 title='Job postings growth from 2011 to 2019, by month')
 
 df['Posting Date'] = pd.to_datetime(df['Posting Date'])
