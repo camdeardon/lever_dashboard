@@ -9,6 +9,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from dash import no_update
 import plotly.figure_factory as ff
+import numpy as np
 
 app = dash.Dash(__name__, external_stylesheets=[
         dbc.themes.LITERA
@@ -70,7 +71,7 @@ df['Month'] = pd.to_datetime(df['Posting Date']).dt.month
 dfs = df.groupby(['Year','Month']).size().to_frame('Number of Jobs Posted')
 dfs.reset_index(inplace=True)
     
-job_growth = px.scatter(dfs, x='Year', y='Number of Jobs Posted', color='Month', 
+job_growth = px.scatter(dfs, x='Year', y='Number of Jobs Posted', color='Month', size = dfs['Number of Jobs Posted'].transform(func = lambda x: np.log(x)), 
 title='Job postings growth from 2011 to 2019, by month')
 
 df['Posting Date'] = pd.to_datetime(df['Posting Date'])
