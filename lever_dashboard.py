@@ -73,13 +73,13 @@ dfs = df.groupby(['Year','Month']).size().to_frame('Number of Jobs Posted')
 dfs.reset_index(inplace=True)
     
 job_growth = px.scatter(dfs, x='Year', y='Number of Jobs Posted', color='Month', size = 'Month', 
-title='Growth in job postings from 2011 to 2019, by month')
+title='Job postings growth from 2011 to 2019, by month')
 
 df['Posting Date'] = pd.to_datetime(df['Posting Date'])
 years  = df.groupby('Posting Date')['Job ID'].count().rename('Number of Posted Jobs')
 years_df = pd.DataFrame(years)
 job_growth3 = px.line(years_df, x = years_df.index, y = 'Number of Posted Jobs',
-title='Growth in job postings from 2011 to 2019')
+title='Job postings growth from 2011 to 2019')
 
 app.layout = html.Div(
     [
