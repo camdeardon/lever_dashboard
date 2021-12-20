@@ -65,10 +65,20 @@ average_salary_calc = average_salary_calc.round(2)
 
 
 #years and job postings
+
+
+df['Year'] = pd.to_datetime(df['Posting Date']).dt.year
+df['Month'] = pd.to_datetime(df['Posting Date']).dt.month
+dfs = df.groupby(['Year','Month']).size().to_frame('Number of Jobs Posted')
+dfs.reset_index(inplace=True)
+    
+job_growth = px.scatter(dfs, x='Year', y='Number of Jobs Posted', color='Month', size = 'Month', 
+title='Growth in job postings from 2011 to 2019, by month')
+
 df['Posting Date'] = pd.to_datetime(df['Posting Date'])
 years  = df.groupby('Posting Date')['Job ID'].count().rename('Number of Posted Jobs')
 years_df = pd.DataFrame(years)
-job_growth = px.line(years_df, x = years_df.index, y = 'Number of Posted Jobs',
+job_growth3 = px.line(years_df, x = years_df.index, y = 'Number of Posted Jobs',
 title='Growth in job postings from 2011 to 2019')
 
 app.layout = html.Div(
@@ -190,7 +200,14 @@ html.Div(
             ]
         )
     ),
-    dcc.Graph(id='job_count_by_years', figure=job_growth),
+    html.Div(
+                        children=[
+                            dcc.Tabs(id="tabs_jobs_graph", value='tab-1-graph', children=[
+                            dcc.Tab(label='Job Growth All time', value='tab-1-graph'),
+                            dcc.Tab(label='Job Growth By Month', value='tab--graph')
+                            ]),dcc.Graph(id='job_count_fig', figure={})
+                                ]
+                            ),
 html.Div(className="h-100 p-5 text-white bg-dark rounded-3")
 
 ]
@@ -340,6 +357,15 @@ def update_salary_visuals(hourly_vs_annual):
         return fig5
     else:
         return fig6
+    
+@app.callback(Output('job_count_fig', 'figure'),
+              Input('tabs_jobs_graph', 'value'))
+def update_jobs_graph(job_tab):
+    if job_tab == 'tab-1-graph':
+        return job_growth3
+    else:
+        return job_growth
+
 
 
 if __name__ == '__main__':
